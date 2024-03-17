@@ -29,7 +29,7 @@ public_users.get('/', async (req, res) => {
         return res.status(200).json(allBooks);
     } catch(Error){
         console.log(Error);
-        return res.status(404).send("Error getting the books");
+        return res.status(404).json({message: "Error getting the books"});
     }
  });
  
@@ -48,10 +48,10 @@ public_users.get('/isbn/:isbn',async (req, res) => {
         if (details){
             return res.status(200).json(details);
         }
-        return res.status(404).send("ISBN does not exist");
+        return res.status(404).json({message: "ISBN does not exist"});
     } catch(Error){
         console.log(Error);
-        return res.status(404).send("Error getting the books");
+        return res.status(404).json({message: "Error getting the books"});
     }   
 });
 
@@ -79,10 +79,10 @@ public_users.get('/author/:author', async(req, res) => {
         if (details){
             return res.status(200).json(details);
         }
-        return res.status(404).send("No Books Exist for Given Author.");
+        return res.status(404).json({message: "No Books Exist for Given Author."});
     } catch(Error){
         console.log(Error);
-        return res.status(404).send("Error getting the books");
+        return res.status(404).json({message: "Error getting the books"});
     }
 });
  
@@ -111,10 +111,10 @@ public_users.get('/title/:title', async(req, res) => {
         if (details){
             return res.status(200).json(details);
         }
-        return res.status(404).send("No Books Exist for Given Title.");
+        return res.status(404).json({message: "No Books Exist for Given Title."});
     } catch(Error){
         console.log(Error);
-        return res.status(404).send("Error getting the books");
+        return res.status(404).json({message: "Error getting the books"});
     }
 });
 
