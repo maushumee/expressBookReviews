@@ -33,7 +33,7 @@ public_users.get('/', async (req, res) => {
     }
  });
  
-// Get book details based on ISBN
+/* // Get book details based on ISBN
 function getBooksFromISBN(isbn){
     if (books.hasOwnProperty(isbn)){
         return books[isbn];
@@ -53,6 +53,27 @@ public_users.get('/isbn/:isbn',async (req, res) => {
         console.log(Error);
         return res.status(404).json({message: "Error getting the books"});
     }   
+}); */
+
+var booksByISBN = function(isbn){
+    return new Promise((resolve, reject) => {
+        try{
+            if (books.hasOwnProperty(isbn)){
+                resolve(books[isbn]);
+            }
+            reject("No Books Exist for Given ISBN");     
+        } catch (err){
+            reject("Error Fetching the Details")
+        }
+    });    
+};
+
+public_users.get('/isbn/:isbn', function (req, res) {
+    const isbn = req.params.isbn;
+    booksByISBN(isbn).then(
+        (details) => res.status(200).json(details),
+        (err) => res.status(404).json({message: err})
+    );
 });
 
 // Get book details based on author
